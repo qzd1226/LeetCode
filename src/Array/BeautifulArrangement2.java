@@ -1,3 +1,5 @@
+package Array;
+
 import org.junit.jupiter.api.Test;
 //给你两个整数 n 和 k ，请你构造一个答案列表 answer ，该列表应当包含从 1 到 n 的 n 个不同正整数，并同时满足下述条件：
 //

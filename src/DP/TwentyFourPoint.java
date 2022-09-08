@@ -7,52 +7,75 @@ public class TwentyFourPoint {
     @Test
     public void testTwentyFourPoint(){
         ans = false;
-        double[] arr = {9,6,4,1};
-        dfs(arr,0.0, 1, new boolean[4]);
+        int[] arr = {6,2,1,5};
+        List<Double> list = new ArrayList<Double>();
+        for(int i = 0; i < arr.length; i++){
+            list.add((double)arr[i]);
+        }
+        dfs(list);
         System.out.println(ans);
     }
-    public void dfs(double[] arr, double sum, int curLocation, boolean[] visited){
-        if(curLocation == 4){
-            int next = -1;
-            for(int i = 0; i < visited.length; i++){
-                if(visited[i] == false){
-                    next = i;
-                }
-            }
-            visited[next] = true;
-            double curNum = arr[next];
-            if(sum + curNum == 24){
-                ans = true;
-            }else if(sum - curNum == 24){
-                ans = true;
-            }else if(sum / curNum == 24){
-                ans = true;
-            }else if(sum * curNum == 24){
+    public void dfs(List<Double> list){
+        int len = list.size();
+        if(len == 1){
+            if(Math.abs(list.get(0) - 24) < 0.0000001 ){
                 ans = true;
             }
-            visited[next] = false;
             return;
-        }else if (curLocation == 1){
-            for(int i = 0; i < visited.length; i++){
-                visited[i] = true;
-                curLocation ++;
-                dfs(arr,arr[i], curLocation,visited);
-                dfs(arr,-arr[i],curLocation,visited);
-                dfs(arr,1/arr[i],curLocation,visited);
-                visited[i] = false;
-            }
-        }else if(curLocation > 4){
-            return;
-        } else{
-            for(int i = 0; i < visited.length; i++){
-                if(visited[i] == false){
-                    visited[i] = true;
-                    curLocation ++;
-                    dfs(arr, sum + arr[i],curLocation,visited);
-                    dfs(arr, sum - arr[i], curLocation, visited);
-                    dfs(arr, sum / arr[i], curLocation, visited);
-                    dfs(arr, sum * arr[i],curLocation,visited);
-                    visited[i] = false;
+        }else{
+            for(int i = 0; i < list.size(); i++){
+                for(int j = 0; j < list.size(); j++){
+                    if(i == j) continue;
+                    List<Double> temp = new ArrayList<Double>(list);
+                    double first = list.get(i);
+                    double second = list.get(j);
+                    list.remove((Double)first);
+                    list.remove((Double)second);
+                    double newCard = first + second;
+                    list.add(newCard);
+                    List<Double> temp2 = new ArrayList<Double>(list);
+                    dfs(list);
+                    //回溯
+                    list = temp2;
+                    if(list.size() == 1){
+                        list = new ArrayList<Double>();
+                    }else{
+                        list.remove((Double)newCard);
+                    }
+                    newCard = second - first;
+                    list.add(newCard);
+                    temp2 = new ArrayList<Double>(list);
+                    dfs(list);
+                    //回溯
+                    list = temp2;
+                    if(list.size() == 1){
+                        list = new ArrayList<Double>();
+                    }else{
+                        list.remove((Double)newCard);
+                    }
+                    newCard = first * second;
+                    list.add(newCard);
+                    temp2 = new ArrayList<Double>(list);
+                    dfs(list);
+                    //回溯
+                    list = temp2;
+                    if(list.size() == 1){
+                        list = new ArrayList<Double>();
+                    }else{
+                        list.remove((Double)newCard);
+                    }
+                    newCard = first / second;
+                    list.add(newCard);
+                    temp2 = new ArrayList<Double>(list);
+                    dfs(list);
+                    list = temp2;
+                    if(list.size() == 1){
+                        list = new ArrayList<Double>();
+                    }else{
+                        list.remove((Double)newCard);
+                    }
+                    //回溯
+                    list = temp;
                 }
             }
         }

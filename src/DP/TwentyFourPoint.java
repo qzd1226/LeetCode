@@ -7,16 +7,20 @@ public class TwentyFourPoint {
     @Test
     public void testTwentyFourPoint(){
         ans = false;
-        int[] arr = {6,2,1,5};
-        List<Double> list = new ArrayList<Double>();
+        int[] arr = {4,1,8,7};
+        LinkedList<Double> list = new LinkedList<Double>();
         for(int i = 0; i < arr.length; i++){
             list.add((double)arr[i]);
         }
         dfs(list);
         System.out.println(ans);
     }
-    public void dfs(List<Double> list){
+    public void dfs(LinkedList<Double> list){
+        if(ans == true){
+            return;
+        }
         int len = list.size();
+        //System.out.println(len);
         if(len == 1){
             if(Math.abs(list.get(0) - 24) < 0.0000001 ){
                 ans = true;
@@ -26,59 +30,32 @@ public class TwentyFourPoint {
             for(int i = 0; i < list.size(); i++){
                 for(int j = 0; j < list.size(); j++){
                     if(i == j) continue;
-                    List<Double> temp = new ArrayList<Double>(list);
+                    LinkedList<Double> temp = new LinkedList<Double>(list);
                     double first = list.get(i);
                     double second = list.get(j);
                     list.remove((Double)first);
                     list.remove((Double)second);
-                    double newCard = first + second;
-                    list.add(newCard);
-                    List<Double> temp2 = new ArrayList<Double>(list);
-                    dfs(list);
-                    //回溯
-                    list = temp2;
-                    if(list.size() == 1){
-                        list = new ArrayList<Double>();
-                    }else{
-                        list.remove((Double)newCard);
+                    for(int k = 0; k < 4; k++){
+                        double newCard = 0;
+                        if(k == 0){
+                            newCard = first + second;
+                        }else if(k == 1){
+                            newCard = first - second;
+                        }else if(k == 2){
+                            newCard = first / second;
+                        }else{
+                            newCard = first * second;
+                        }
+                        LinkedList<Double> temp2 = new LinkedList<Double>(list);
+                        list.addFirst((Double)newCard);
+                        dfs(list);
+                        list = temp2;
                     }
-                    newCard = second - first;
-                    list.add(newCard);
-                    temp2 = new ArrayList<Double>(list);
-                    dfs(list);
-                    //回溯
-                    list = temp2;
-                    if(list.size() == 1){
-                        list = new ArrayList<Double>();
-                    }else{
-                        list.remove((Double)newCard);
-                    }
-                    newCard = first * second;
-                    list.add(newCard);
-                    temp2 = new ArrayList<Double>(list);
-                    dfs(list);
-                    //回溯
-                    list = temp2;
-                    if(list.size() == 1){
-                        list = new ArrayList<Double>();
-                    }else{
-                        list.remove((Double)newCard);
-                    }
-                    newCard = first / second;
-                    list.add(newCard);
-                    temp2 = new ArrayList<Double>(list);
-                    dfs(list);
-                    list = temp2;
-                    if(list.size() == 1){
-                        list = new ArrayList<Double>();
-                    }else{
-                        list.remove((Double)newCard);
-                    }
-                    //回溯
                     list = temp;
                 }
             }
         }
+
     }
 }
 

@@ -45,5 +45,16 @@ public class minCostToHireWorkers {
                 }
                 return res;
             }
+            @Test
+            public void test02(){
+                    int count = 0;
+                for(int i = 100; i < 1000; i++){
+                    if(i % 10 == 9 && i % 9 == 8 && i % 8 == 7 ){
+                        count ++;
+                    }
+                }
+                System.out.println(count);
+            }
         }
+
 

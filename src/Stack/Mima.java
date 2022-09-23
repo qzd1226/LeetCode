@@ -5,9 +5,9 @@ package Stack;
 import java.util.*;
 public class Mima {
     public static void main(String[] args) {
-        String str = "7[ezb3[a2[cp]]]";
+        String str = "3[a2[c]2[e]4[mb]]";
         String ans = getCode(str);
-        System.out.println(ans);
+        System.out.println("ans:" + ans);
     }
     public static String getCode(String str){
         String ans = new String();
@@ -30,21 +30,28 @@ public class Mima {
                 }
                 i--;
                 strings.addFirst(curString);
-            }else if(str.charAt(i) == ']'){
-                int num = nums.pollFirst();
-                String t = strings.pollFirst();
-                String cur = new String();
-                for(int j = 0; j < num; j++){
-                    cur = cur + t;
+            }else if(str.charAt(i) == '['){
+                strings.add("[");
+            } else if(str.charAt(i) == ']'){
+                String curAns = new String();
+                while(!strings.peek().equals("[")){
+                    String curStr = strings.pollFirst();
+                    int curNum = nums.pollFirst();
+                    for(int j = 0; j < curNum; j++){
+                        curAns = curAns + curStr;
+                    }
+                    if(strings.peek().equals("[")){
+                        break;
+                    }
+                    if(!strings.isEmpty()){
+                        curAns = strings.pollFirst() + curAns;
+                    }
                 }
-                if(!strings.isEmpty()){
-                    cur = strings.pollFirst() + cur;
+                strings.pollFirst();
+                if(nums.isEmpty() && strings.isEmpty()){
+                    return curAns;
                 }
-                if(strings.isEmpty() && nums.isEmpty()){
-                    return cur;
-                }else{
-                    strings.addFirst(cur);
-                }
+                strings.addFirst(curAns);
             }
         }
         return ans;

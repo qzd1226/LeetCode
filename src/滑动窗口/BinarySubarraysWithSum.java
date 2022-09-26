@@ -27,10 +27,12 @@ public class BinarySubarraysWithSum {
             if (r1 < l) r1 = l;
             if (r2 < l) r2 = l;
             while (r1 < n && sum1 + nums[r1] < goal) {
-                sum1 += nums[r1++];
+                sum1 += nums[r1];
+                r1++;
             }
             while (r2 < n && sum2 + nums[r2] <= goal) {
-                sum2 += nums[r2++];
+                sum2 += nums[r2];
+                r2 ++;
             }
             ans += r2- r1;
             if (l < r1) sum1 -= nums[l];

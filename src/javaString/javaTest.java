@@ -29,4 +29,16 @@ public class javaTest {
         String str = sb.toString();
         System.out.println(str.getClass().getTypeName());
     }
+    @Test
+    public void splitTest(){
+        String str = "/leetcode/one/1";
+        System.out.println("s" + str.substring(0,0).length() + "y");
+        System.out.println(str.lastIndexOf('/'));
+        System.out.println(str.substring(0,str.lastIndexOf('/')));
+        String str2 = "/leetcode";
+        String[] strArr = str2.split("/");
+        for(int i = 0; i < strArr.length; i++){
+            System.out.println(strArr[i]);
+        }
+    }
 }

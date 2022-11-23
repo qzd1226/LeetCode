@@ -11,6 +11,13 @@ public class OOPTest {
         stu.study();
         System.out.println(stu.age);
 
+        Person per = new Student("Jeff","CS");
+        per.eat();
+        per.walk();
+        // per.study();
+        System.out.println(per.age);
+        //System.out.println(per.major);
+
     }
 
     public class Person{
@@ -50,4 +57,5 @@ public class OOPTest {
             System.out.println("学生学习");
         }
     }
+
 }

@@ -1,3 +1,5 @@
+package UnionFind;
+
 import org.junit.jupiter.api.Test;
 
 public class UnionFIndTest {
